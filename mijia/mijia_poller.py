@@ -14,6 +14,7 @@ import logging
 import time
 import signal
 import os
+from security import safe_command
 
 #from gattlib import GATTRequester
 
@@ -53,7 +54,7 @@ def write_readnotif_ble(mac, handle, value, retries=3, timeout=20, adapter='hci0
             LOGGER.debug("Running gatttool with a timeout of %s",
                          timeout)
 
-            with Popen(cmd,
+            with safe_command.run(Popen, cmd,
                        shell=True,
                        stdout=PIPE,
                        preexec_fn=os.setsid) as process:
@@ -112,7 +113,7 @@ def read_ble(mac, handle, retries=3, timeout=20, adapter='hci0'):
             LOGGER.debug("Running gatttool with a timeout of %s",
                          timeout)
 
-            with Popen(cmd,
+            with safe_command.run(Popen, cmd,
                        shell=True,
                        stdout=PIPE,
                        preexec_fn=os.setsid) as process:
