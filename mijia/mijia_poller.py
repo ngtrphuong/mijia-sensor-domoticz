@@ -54,8 +54,7 @@ def write_readnotif_ble(mac, handle, value, retries=3, timeout=20, adapter='hci0
                          timeout)
 
             with Popen(cmd,
-                       shell=True,
-                       stdout=PIPE,
+                       shell=False, stdout=PIPE,
                        preexec_fn=os.setsid) as process:
                 try:
                     result = process.communicate(timeout=timeout)[0]
@@ -113,8 +112,7 @@ def read_ble(mac, handle, retries=3, timeout=20, adapter='hci0'):
                          timeout)
 
             with Popen(cmd,
-                       shell=True,
-                       stdout=PIPE,
+                       shell=False, stdout=PIPE,
                        preexec_fn=os.setsid) as process:
                 try:
                     result = process.communicate(timeout=timeout)[0]
